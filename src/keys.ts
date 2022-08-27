@@ -1,8 +1,8 @@
 export default {
     database: {
-        host: 'bvp90548ovv47u48bd8f-mysql.services.clever-cloud.com',
-        user: 'u9sqy4jmtgcamv2r',
-        password: 'fPn1oug2B8jaj1BzuAIh',
-        database: 'bvp90548ovv47u48bd8f'
+        host: process.env.HOST_DB,
+        user: process.env.USER_DB,
+        password: process.env.PASS_DB,
+        database: process.env.NAME_DB
     }
 }
