@@ -18,63 +18,98 @@ class CategoriesController {
     //Listar
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const categories = yield database_1.default.query('SELECT * FROM categories');
-            res.json(categories);
+            try {
+                const categories = yield database_1.default.query('SELECT * FROM categories');
+                res.json(categories);
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //Listar un solo elemento
     listId(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            const category = yield database_1.default.query('SELECT * FROM categories WHERE id = ?', [id]);
-            if (category.length > 0) {
-                return res.json(category[0]);
+            try {
+                const { id } = req.params;
+                const category = yield database_1.default.query('SELECT * FROM categories WHERE id = ?', [id]);
+                if (category.length > 0) {
+                    return res.json(category[0]);
+                }
+                res.status(404).json({ text: "The category don't found" });
             }
-            res.status(404).json({ text: "The category don't found" });
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //filtrador de datos
     filterItem(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { name } = req.params;
-            const item = yield database_1.default.query('SELECT * FROM categories WHERE name = ?', [name]);
-            if (item.length > 0) {
-                return res.json(item[0]);
+            try {
+                const { name } = req.params;
+                const item = yield database_1.default.query('SELECT * FROM categories WHERE name = ?', [name]);
+                if (item.length > 0) {
+                    return res.json(item[0]);
+                }
+                else {
+                    return res.json([]);
+                }
             }
-            else {
-                return res.json([]);
+            catch (error) {
+                console.log('error ', error);
             }
         });
     }
     //filtrador por url
     filterUrl(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { url } = req.params;
-            const item = yield database_1.default.query('SELECT * FROM categories WHERE url = ?', [url]);
-            res.json(item);
+            try {
+                const { url } = req.params;
+                const item = yield database_1.default.query('SELECT * FROM categories WHERE url = ?', [url]);
+                res.json(item);
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //Crear
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('INSERT INTO categories SET ?', [req.body]);
-            res.json({ message: 'Save Categories' });
+            try {
+                yield database_1.default.query('INSERT INTO categories SET ?', [req.body]);
+                res.json({ message: 'Save Categories' });
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //Eliminar
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            yield database_1.default.query('DELETE FROM categories WHERE id= ?', [id]);
-            res.json({ message: 'Category Delete' });
+            try {
+                const { id } = req.params;
+                yield database_1.default.query('DELETE FROM categories WHERE id= ?', [id]);
+                res.json({ message: 'Category Delete' });
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //Actualizar
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            yield database_1.default.query('UPDATE categories set ? WHERE id= ?', [req.body, id]);
-            res.json({ message: 'The category update' });
+            try {
+                const { id } = req.params;
+                yield database_1.default.query('UPDATE categories set ? WHERE id= ?', [req.body, id]);
+                res.json({ message: 'The category update' });
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
 }
