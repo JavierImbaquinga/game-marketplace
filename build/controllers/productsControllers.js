@@ -18,114 +18,174 @@ class productsController {
     //Listar productos
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const products = yield database_1.default.query('SELECT * FROM products');
-            res.json(products);
+            try {
+                const products = yield database_1.default.query('SELECT * FROM products');
+                res.json(products);
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //Listar un solo elelemento
     listId(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("parametros por id", req.params);
-            const { id } = req.params;
-            const product = yield database_1.default.query('SELECT * FROM products WHERE id = ?', [id]);
-            if (product.length > 0) {
-                return res.json(product[0]);
+            try {
+                console.log("parametros por id", req.params);
+                const { id } = req.params;
+                const product = yield database_1.default.query('SELECT * FROM products WHERE id = ?', [id]);
+                if (product.length > 0) {
+                    return res.json(product[0]);
+                }
+                res.status(404).json({ text: "The product don't found id" });
             }
-            res.status(404).json({ text: "The product don't found id" });
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //Limiar la busqueda
     limit(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { init } = req.params;
-            const { limite } = req.params;
-            const number = parseInt(limite);
-            const initial = parseInt(init);
-            const products = yield database_1.default.query('SELECT * FROM products LIMIT ?,?', [initial, number]);
-            res.json(products);
+            try {
+                const { init } = req.params;
+                const { limite } = req.params;
+                const number = parseInt(limite);
+                const initial = parseInt(init);
+                const products = yield database_1.default.query('SELECT * FROM products LIMIT ?,?', [initial, number]);
+                res.json(products);
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //Verificar si existe el item
     verifyItem(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { name } = req.params;
-            const item = yield database_1.default.query('SELECT * FROM products WHERE name = ?', [name]);
-            if (item.length > 0) {
-                return res.json(item[0]);
+            try {
+                const { name } = req.params;
+                const item = yield database_1.default.query('SELECT * FROM products WHERE name = ?', [name]);
+                if (item.length > 0) {
+                    return res.json(item[0]);
+                }
+                else {
+                    return res.json([]);
+                }
             }
-            else {
-                return res.json([]);
+            catch (error) {
+                console.log('error ', error);
             }
         });
     }
     //filtro de informacion para cargar galeria de top 20
     filterData(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { filtro } = req.params;
-            const product = yield database_1.default.query('SELECT * FROM products WHERE name = ?', [filtro]);
-            res.json(product);
+            try {
+                const { filtro } = req.params;
+                const product = yield database_1.default.query('SELECT * FROM products WHERE name = ?', [filtro]);
+                res.json(product);
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //filtrador de datos por url Category
     filterUrlCategory(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { data } = req.params;
-            const { url } = req.params;
-            const product = yield database_1.default.query('SELECT * FROM products WHERE  ' + data + ' = ?', [url]);
-            res.json(product);
+            try {
+                const { data } = req.params;
+                const { url } = req.params;
+                const product = yield database_1.default.query('SELECT * FROM products WHERE  ' + data + ' = ?', [url]);
+                res.json(product);
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //filtrar por url
     filterUrlItem(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { url } = req.params;
-            const item = yield database_1.default.query('SELECT * FROM products WHERE url=?', [url]);
-            res.json(item);
+            try {
+                const { url } = req.params;
+                const item = yield database_1.default.query('SELECT * FROM products WHERE url=?', [url]);
+                res.json(item);
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //filtrar por data y campos
     filterMultipleData(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { item } = req.params;
-            const { valor } = req.params;
-            const products = yield database_1.default.query('SELECT * FROM products WHERE ' + item + ' = ?', [valor]);
-            res.json(products);
+            try {
+                const { item } = req.params;
+                const { valor } = req.params;
+                const products = yield database_1.default.query('SELECT * FROM products WHERE ' + item + ' = ?', [valor]);
+                res.json(products);
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //filtrador con limitadores
     filterLimitData(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { item } = req.params;
-            const { valor } = req.params;
-            const { init } = req.params;
-            const iniciador = parseInt(init);
-            const { limit } = req.params;
-            const limitador = parseInt(limit);
-            const products = yield database_1.default.query('SELECT * FROM products WHERE ' + item + ' = ? LIMIT ?,?', [valor, iniciador, limitador]);
-            res.json(products);
+            try {
+                const { item } = req.params;
+                const { valor } = req.params;
+                const { init } = req.params;
+                const iniciador = parseInt(init);
+                const { limit } = req.params;
+                const limitador = parseInt(limit);
+                const products = yield database_1.default.query('SELECT * FROM products WHERE ' + item + ' = ? LIMIT ?,?', [valor, iniciador, limitador]);
+                res.json(products);
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //Crear
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('INSERT INTO products SET ? ', [req.body]);
-            res.json({ message: 'Save Product' });
+            try {
+                yield database_1.default.query('INSERT INTO products SET ? ', [req.body]);
+                res.json({ message: 'Save Product' });
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //Eliminar
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            yield database_1.default.query('DELETE FROM products WHERE id=?', [id]);
-            res.json({ message: 'Product Delete' });
+            try {
+                const { id } = req.params;
+                yield database_1.default.query('DELETE FROM products WHERE id=?', [id]);
+                res.json({ message: 'Product Delete' });
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //Actualizar
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            yield database_1.default.query('UPDATE products set ? WHERE id=?', [req.body, id]);
-            res.json({ message: 'The product update' });
+            try {
+                const { id } = req.params;
+                yield database_1.default.query('UPDATE products set ? WHERE id=?', [req.body, id]);
+                res.json({ message: 'The product update' });
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
 }

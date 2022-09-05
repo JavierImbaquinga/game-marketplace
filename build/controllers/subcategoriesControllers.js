@@ -18,79 +18,124 @@ class SubcategoriesController {
     //listar
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const subcategories = yield database_1.default.query('SELECT * FROM subcategories');
-            res.json(subcategories);
+            try {
+                const subcategories = yield database_1.default.query('SELECT * FROM subcategories');
+                res.json(subcategories);
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //Listar un solo elemento
     listId(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            const subcategory = yield database_1.default.query('SELECT * FROM subcategories WHERE id = ?', [id]);
-            if (subcategory.length > 0) {
-                return res.json(subcategory[0]);
+            try {
+                const { id } = req.params;
+                const subcategory = yield database_1.default.query('SELECT * FROM subcategories WHERE id = ?', [id]);
+                if (subcategory.length > 0) {
+                    return res.json(subcategory[0]);
+                }
+                res.status(404).json({ text: "The subcategory don't found" });
             }
-            res.status(404).json({ text: "The subcategory don't found" });
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //Filtrador de datos
     filterItem(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { name } = req.params;
-            const item = yield database_1.default.query('SELECT * FROM subcategories WHERE name = ?', [name]);
-            if (item.length > 0) {
-                return res.json(item[0]);
+            try {
+                const { name } = req.params;
+                const item = yield database_1.default.query('SELECT * FROM subcategories WHERE name = ?', [name]);
+                if (item.length > 0) {
+                    return res.json(item[0]);
+                }
+                else {
+                    return res.json({ text: "The item don't found" });
+                }
             }
-            else {
-                return res.json({ text: "The item don't found" });
+            catch (error) {
+                console.log('error ', error);
             }
         });
     }
     //filtrador por titulos de categoria
     filterTitleCategory(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { title } = req.params;
-            const item = yield database_1.default.query('SELECT * FROM subcategories WHERE title_list = ?', [title]);
-            res.json(item);
+            try {
+                const { title } = req.params;
+                const item = yield database_1.default.query('SELECT * FROM subcategories WHERE title_list = ?', [title]);
+                res.json(item);
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //filter categories
     filterCategory(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { idCategory } = req.params;
-            const item = yield database_1.default.query('SELECT * FROM subcategories WHERE category = ?', [idCategory]);
-            res.json(item);
+            try {
+                const { idCategory } = req.params;
+                const item = yield database_1.default.query('SELECT * FROM subcategories WHERE category = ?', [idCategory]);
+                res.json(item);
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //filtrador por url
     filterUrl(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { url } = req.params;
-            const item = yield database_1.default.query('SELECT * FROM subcategories WHERE url = ?', [url]);
-            res.json(item);
+            try {
+                const { url } = req.params;
+                const item = yield database_1.default.query('SELECT * FROM subcategories WHERE url = ?', [url]);
+                res.json(item);
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //Crear
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('INSERT INTO subcategories SET ?', [req.body]);
-            res.json({ message: 'Save Subcategory' });
+            try {
+                yield database_1.default.query('INSERT INTO subcategories SET ?', [req.body]);
+                res.json({ message: 'Save Subcategory' });
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //Elimiar
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            yield database_1.default.query('DELETE FROM subcategories WHERE id=?', [id]);
-            res.json({ message: 'Subcategory Delete' });
+            try {
+                const { id } = req.params;
+                yield database_1.default.query('DELETE FROM subcategories WHERE id=?', [id]);
+                res.json({ message: 'Subcategory Delete' });
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
     //Actualizar
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            yield database_1.default.query('UPDATE subcategories set ? WHERE id=?', [req.body, id]);
-            res.json({ message: 'The subcategory update' });
+            try {
+                const { id } = req.params;
+                yield database_1.default.query('UPDATE subcategories set ? WHERE id=?', [req.body, id]);
+                res.json({ message: 'The subcategory update' });
+            }
+            catch (error) {
+                console.log('error ', error);
+            }
         });
     }
 }
