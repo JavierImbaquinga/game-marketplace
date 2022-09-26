@@ -1,6 +1,7 @@
 import express, {Application} from "express";
 import morgan from 'morgan';
 import cors from "cors";
+import path from "path"
 import indexRoutes from "./routes/indexRoutes";
 import categoriesRoutes from "./routes/categoriesRoutes";
 import productsRoutes from "./routes/productsRoutes";
@@ -34,7 +35,8 @@ class Server {
         this.app.use(express.json());
         //
         this.app.use(express.urlencoded({extended: false}))
-
+        //ficheros folder
+        this.app.use('/uploads', express.static(path.resolve('uploads')));
     }
 
     //rutas

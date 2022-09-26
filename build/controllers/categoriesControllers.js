@@ -31,6 +31,7 @@ class CategoriesController {
     listId(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                console.log(req.params);
                 const { id } = req.params;
                 const category = yield database_1.default.query('SELECT * FROM categories WHERE id = ?', [id]);
                 if (category.length > 0) {

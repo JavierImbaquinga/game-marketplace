@@ -142,6 +142,7 @@ class productsController {
 
     //Crear
     public async create(req:Request, res:Response):Promise<void>{
+        console.log(req.body)
         try {
             await db.query('INSERT INTO products SET ? ', [req.body]);
             res.json({message: 'Save Product'})
@@ -150,6 +151,17 @@ class productsController {
         }
 
         
+    }
+
+    
+    //Upload File
+    public async uploadImage(req:Request, res:Response):Promise<void> {
+        try {
+            let url = req.file?.path;
+            res.json(url)
+        }catch(error){
+            console.log('error', error)
+        }
     }
 
     //Eliminar

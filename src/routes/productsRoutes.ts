@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {productsControllers} from "../controllers/productsControllers";
+import multer from "../Libs/multer";
 
 class ProductsRoutes {
     router: Router = Router();
@@ -16,11 +17,14 @@ class ProductsRoutes {
         this.router.get('/filtro/:data/:url', productsControllers.filterUrlCategory);
         this.router.get('/item/:url', productsControllers.filterUrlItem);
         this.router.get('/multiple/:item/:valor', productsControllers.filterMultipleData);
-        this.router.post('/', productsControllers.create);
+        // this.router.post('/', productsControllers.create);
+        this.router.post('/', productsControllers.create)
+        this.router.post('/upload', multer.single('image'), productsControllers.uploadImage)
         this.router.delete('/:id', productsControllers.delete);
         this.router.put('/:id', productsControllers.update)
         this.router.get('/limit/:init/:limite', productsControllers.limit)
         this.router.get('/filter-limit/:item/:valor/:init/:limit', productsControllers.filterLimitData);
+
     }
 }
 

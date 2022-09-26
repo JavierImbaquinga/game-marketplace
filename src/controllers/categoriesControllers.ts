@@ -18,10 +18,14 @@ class CategoriesController {
     //Listar un solo elemento
     public async listId(req:Request, res:Response):Promise <any>{
         try {
+            console.log(req.params)
+            
             const {id} = req.params;
             const category = await db.query('SELECT * FROM categories WHERE id = ?',[id])
+            
             if(category.length > 0){
                 return res.json(category[0])
+
             }
             res.status(404).json({text: "The category don't found"});
         }catch(error){

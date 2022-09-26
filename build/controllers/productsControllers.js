@@ -153,12 +153,26 @@ class productsController {
     //Crear
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
             try {
                 yield database_1.default.query('INSERT INTO products SET ? ', [req.body]);
                 res.json({ message: 'Save Product' });
             }
             catch (error) {
                 console.log('error ', error);
+            }
+        });
+    }
+    //Upload File
+    uploadImage(req, res) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let url = (_a = req.file) === null || _a === void 0 ? void 0 : _a.path;
+                res.json(url);
+            }
+            catch (error) {
+                console.log('error', error);
             }
         });
     }
